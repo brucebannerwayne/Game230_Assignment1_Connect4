@@ -151,7 +151,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 		for (j = 0; j < c; j++) {
 			if (board[i][j] != "*") {
 				for (int a = 1; a <= ws; a++) {
-					if (board[i][j] != board[(i + a) % r][j]) {
+					if (board[i][j] != board[i + a][j]) {
 						vW = false;
 						break;
 					}
@@ -185,7 +185,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 				}
 				hW = true;
 				for (int a = 1; a <= ws; a++) {
-					if (board[i][j] != board[i + a][j + a]) {
+					if (board[i][j] != board[i + a][(j + a) % c]) {
 						dW1 = false;
 						break;
 					}
@@ -202,7 +202,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 				}
 				dW1 = true;
 				for (int a = 1; a <= ws; a++) {
-					if (board[i][j] != board[i - a][j + a]) {
+					if (board[i][j] != board[i - a][(j + a) % c]) {
 						dW2 = false;
 						break;
 					}
