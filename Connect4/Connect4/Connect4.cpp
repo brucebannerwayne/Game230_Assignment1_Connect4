@@ -3,7 +3,7 @@
 #include <string>
 
 using namespace std;
-const int MAXSIZE = 100;
+const int MAXSIZE = 20;
 int sum = 0;
 //template<int row,int column>
 string board[MAXSIZE][MAXSIZE] = {};
@@ -19,12 +19,12 @@ void PrintMatrix(int r, int c) {
 	int j = 0;
 	cout << "//////////////////////////////////////////////////" << endl;
 	for (j = 0; j < c; j++) {
-		cout << j + 1 << " ";
+		cout << j + 1 << "\t";
 	}
 	cout << endl;
 	for (int i = 0; i < r; i++) {
 		for (j = 0; j < c; j++) {
-			cout << board[i][j] << " ";
+			cout << board[i][j] << "\t";
 		}
 		cout << endl;
 		j = 0;
@@ -138,7 +138,7 @@ bool cheackWin(int r, int c, int ws) {
 int PieceCheck(int r, int c, string a) {
 	int count = 0;
 	for (int j = 0; j < c; j++) {
-		if (board[r][j] == a) {
+		if (board[r - 1][j] == a) {
 			count++;
 		}
 	}
@@ -234,24 +234,24 @@ int main()
 	int drop = 0;
 	int columnInput = 0;
 	while (true) {
-		cout << "Please input the rows of the board(0 to 100): " << endl;
+		cout << "Please input the rows of the board(4 to 20): " << endl;
 		cin >> r;
-		if (r <= MAXSIZE && r >= 0) {
+		if (r <= MAXSIZE && r >= 4) {
 			break;
 		}
 	}
 	while (true) {
-		cout << "Please input the columns of the board(0 to 100): " << endl;
+		cout << "Please input the columns of the board(4 to 20): " << endl;
 		cin >> c;
-		if (c <= MAXSIZE && c >= 0) {
+		if (c <= MAXSIZE && c >= 4) {
 			break;
 		}
 	}
 	sum = r * c;
 	while (true) {
-		cout << "How many pieces in straight to win? (0 to 100): " << endl;
+		cout << "How many pieces in straight to win? (3 to 20): " << endl;
 		cin >> wStreak;
-		if (c <= MAXSIZE && c >= 0) {
+		if (wStreak <= MAXSIZE && wStreak >= 3) {
 			break;
 		}
 	}
