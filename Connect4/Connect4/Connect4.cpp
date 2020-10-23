@@ -53,6 +53,8 @@ void DropChess(int r, int c) {
 	for (j; j >= 0; j--) {
 		board[j][c] = board[j - 1][c];
 	}
+	board[0][c] = "*";
+	sum++;
 }
 bool cheackWin(int r, int c, int ws) {
 	int i, j = 0;
@@ -63,6 +65,7 @@ bool cheackWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i + a][j]) {
 						vW = false;
+						break;
 					}
 				}
 				if (vW == true) {
@@ -79,6 +82,7 @@ bool cheackWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i][j + a]) {
 						hW = false;
+						break;
 					}
 				}
 				if (hW == true) {
@@ -95,6 +99,7 @@ bool cheackWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i + a][j + a]) {
 						dW1 = false;
+						break;
 					}
 				}
 				if (dW1 == true) {
@@ -111,6 +116,7 @@ bool cheackWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i - a][j + a]) {
 						dW2 = false;
+						break;
 					}
 				}
 				if (dW2 == true) {
@@ -129,7 +135,15 @@ bool cheackWin(int r, int c, int ws) {
 	}
 	return false;
 }
-
+int PieceCheck(int r, int c, string a) {
+	int count = 0;
+	for (int j = 0; j < c; j++) {
+		if (board[r][j] == a) {
+			count++;
+		}
+	}
+	return count;
+}
 bool cheackWrapWin(int r, int c, int ws) {
 	int i, j = 0;
 	bool hW = true, vW = true, dW1 = true, dW2 = true;
@@ -139,6 +153,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[(i + a) % r][j]) {
 						vW = false;
+						break;
 					}
 				}
 				if (vW == true) {
@@ -155,6 +170,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i][(j + a) % c]) {
 						hW = false;
+						break;
 					}
 				}
 				if (hW == true) {
@@ -171,6 +187,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i + a][j + a]) {
 						dW1 = false;
+						break;
 					}
 				}
 				if (dW1 == true) {
@@ -187,6 +204,7 @@ bool cheackWrapWin(int r, int c, int ws) {
 				for (int a = 1; a <= ws; a++) {
 					if (board[i][j] != board[i - a][j + a]) {
 						dW2 = false;
+						break;
 					}
 				}
 				if (dW2 == true) {
@@ -244,36 +262,137 @@ int main()
 	InitMatrix(r, c);
 	PrintMatrix(r, c);
 	while (!gameOver) {
-		
-		if (player1) {
-			cout << "Player1 Please input which column you want to play: ";
-			cin >> columnInput;
+		if (drop != 1) {
+			if (player1) {
+				cout << "Player1 Please input which column you want to play: ";
+				cin >> columnInput;
+			}
+			else {
+				cout << "Player2 Please input which column you want to play: ";
+				cin >> columnInput;
+			}
+			while (true) {
+				if (columnInput <= c && columnInput > 0) {
+					int a = columnInput - 1;
+					if (board[0][a] != "*") {
+						cout << "Please input a valid number (Current column is full): ";
+						cin >> columnInput;
+					}
+					else {
+						cout << "You want to play at column " << columnInput << endl;
+						break;
+
+					}
+				}
+				else {
+					cout << "Please input a valid number (1 to " << c << "):";
+					cin >> columnInput;
+				}
+			}
+			int m = PlayChess(columnInput - 1, player1, r);
+			PrintMatrix(r, c);
+			player1 = !player1;
 		}
-		else {
-			cout << "Player2 Please input which column you want to play: ";
-			cin >> columnInput;
-		}
-		while (true) {
-			if (columnInput <= c && columnInput > 0) {
-				int a = columnInput - 1;
-				if (board[0][a] != "*") {
-					cout << "Please input a valid number (Current column is full): ";
+		if (drop == 1) {
+			cout << "Do you want to play or withdraw a piece of chess? Type 1 for play, 2 for withdraw" << endl;
+			int a = 1;
+			cin >> a;
+			while (true) {
+				if (a == 1) {
+					break;
+				}
+				else if (a == 2) {
+					if (player1) {
+						int count = PieceCheck(r, c, "X");
+						if (count > 0) {
+							break;
+						}
+						else {
+							cout << "You don't have any piece to withdraw, you need to play" << endl;
+							a = 1;
+						}
+					}
+					if (!player1) {
+						int count = PieceCheck(r, c, "O");
+						if (count > 0) {
+							break;
+						}
+						else {
+							cout << "You don't have any piece to withdraw, you need to play" << endl;
+							a = 1;
+						}
+					}
+				}
+				else{
+					cout << "Invalid input, please input again" << endl;
+					cin >> a;
+				}
+			}
+			if (a == 2) {
+				if (player1) {
+					cout << "Player1 Please input which column you want withdraw: ";
+					cin >> columnInput;
+					while (true) {
+						if (board[r - 1][columnInput - 1] == "X") {
+							break;
+						}
+						else {
+							cout << "invalid Input, please input again: " << endl;
+							cin >> columnInput;
+						}
+					}
+			    }
+				if (!player1){
+						cout << "Player2 Please input which column you want to withdraw: ";
+						cin >> columnInput;
+						while (true) {
+							if (board[r - 1][columnInput - 1] == "O") {
+								break;
+							}
+							else {
+								cout << "invalid Input, please input again" << endl;
+								cin >> columnInput;
+							}
+						}
+				}
+				
+				DropChess(r, columnInput - 1);
+				PrintMatrix(r,c);
+				player1 = !player1;
+			}
+			if (a == 1) {
+				if (player1) {
+					cout << "Player1 Please input which column you want to play: ";
 					cin >> columnInput;
 				}
 				else {
-					cout << "You want to play at column " << columnInput << endl;
-					break;
-
+					cout << "Player2 Please input which column you want to play: ";
+					cin >> columnInput;
 				}
-			}
-			else {
-				cout << "Please input a valid number (1 to " << c << "):";
-				cin >> columnInput;
+				while (true) {
+					if (columnInput <= c && columnInput > 0) {
+						int a = columnInput - 1;
+						if (board[0][a] != "*") {
+							cout << "Please input a valid number (Current column is full): ";
+							cin >> columnInput;
+						}
+						else {
+							cout << "You want to play at column " << columnInput << endl;
+							break;
+
+						}
+					}
+					else {
+						cout << "Please input a valid number (1 to " << c << "):";
+						cin >> columnInput;
+					}
+				}
+				int m = PlayChess(columnInput - 1, player1, r);
+				PrintMatrix(r, c);
+				player1 = !player1;
 			}
 		}
-		int m = PlayChess(columnInput - 1, player1, r);
-		PrintMatrix(r, c);
-		player1 = !player1;
+		
 		if (mode != 1) {
 			gameOver = cheackWin(r, c, wStreak - 1);
 		}
@@ -299,13 +418,4 @@ int main()
 	return 0;
 }
 
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
 
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
