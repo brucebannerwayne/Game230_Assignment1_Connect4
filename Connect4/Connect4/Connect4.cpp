@@ -1,4 +1,4 @@
-﻿
+﻿#include<iomanip>
 #include <iostream>
 #include <string>
 
@@ -19,12 +19,12 @@ void PrintMatrix(int r, int c) {
 	int j = 0;
 	cout << "//////////////////////////////////////////////////" << endl;
 	for (j = 0; j < c; j++) {
-		cout << j + 1 << "\t";
+		cout << setfill('0') << setw(2) <<j+1 <<" ";
 	}
 	cout << endl;
 	for (int i = 0; i < r; i++) {
 		for (j = 0; j < c; j++) {
-			cout << board[i][j] << "\t";
+			cout << board[i][j] << "  ";
 		}
 		cout << endl;
 		j = 0;
