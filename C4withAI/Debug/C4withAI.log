@@ -1,0 +1,4 @@
+﻿  C4withAI.cpp
+D:\Game230\C4withAI\C4withAI\C4withAI.cpp(430,8): warning C4553:  “==”: 未使用表达式结果；是否打算使用“=”?
+D:\Game230\C4withAI\C4withAI\C4withAI.cpp(430,8): warning C4553: D:\Game230\C4withAI\C4withAI\C4withAI.cpp(51) : warning C4715: “PlayChess”: 不是所有的控件路径都返回值
+  C4withAI.vcxproj -> D:\Game230\C4withAI\Debug\C4withAI.exe
