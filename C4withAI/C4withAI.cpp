@@ -5,7 +5,8 @@
 using namespace std;
 const int MAXSIZE = 20;
 int sum = 0;
-int winner = 0;
+bool winner1 = false;
+bool winner2 = false;
 //template<int row,int column>
 string board[MAXSIZE][MAXSIZE] = {};
 void InitMatrix(int r, int c) {
@@ -60,6 +61,8 @@ void DropChess(int r, int c) {
 bool cheackWin(int r, int c, int ws) {
 	int i, j = 0;
 	bool hW = true, vW = true, dW1 = true, dW2 = true;
+	winner1 = false;
+	winner2 = false;
 	for (i = 0; i < r; i++) {
 		for (j = 0; j < c; j++) {
 			if (board[i][j] != "*") {
@@ -71,13 +74,13 @@ bool cheackWin(int r, int c, int ws) {
 				}
 				if (vW == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+					
 				}
 				vW = true;
 				for (int a = 1; a <= ws; a++) {
@@ -88,13 +91,13 @@ bool cheackWin(int r, int c, int ws) {
 				}
 				if (hW == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+					
 				}
 				hW = true;
 				for (int a = 1; a <= ws; a++) {
@@ -105,13 +108,13 @@ bool cheackWin(int r, int c, int ws) {
 				}
 				if (dW1 == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+					
 				}
 				dW1 = true;
 				for (int a = 1; a <= ws; a++) {
@@ -122,19 +125,25 @@ bool cheackWin(int r, int c, int ws) {
 				}
 				if (dW2 == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+					
 				}
 				dW2 = true;
 			}
 		}
 	}
-	return false;
+	if (winner1 == true || winner2 == true) {
+		return true;
+	}
+	else {
+
+		return false;
+	}
 }
 int PieceCheck(int r, int c, string a) {
 	int count = 0;
@@ -147,6 +156,8 @@ int PieceCheck(int r, int c, string a) {
 }
 bool cheackWrapWin(int r, int c, int ws) {
 	int i, j = 0;
+	winner1 = false;
+	winner2 = false;
 	bool hW = true, vW = true, dW1 = true, dW2 = true;
 	for (i = 0; i < r; i++) {
 		for (j = 0; j < c; j++) {
@@ -159,13 +170,13 @@ bool cheackWrapWin(int r, int c, int ws) {
 				}
 				if (vW == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+		
+					
 				}
 				vW = true;
 				for (int a = 1; a <= ws; a++) {
@@ -176,13 +187,13 @@ bool cheackWrapWin(int r, int c, int ws) {
 				}
 				if (hW == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+					
 				}
 				hW = true;
 				for (int a = 1; a <= ws; a++) {
@@ -193,13 +204,13 @@ bool cheackWrapWin(int r, int c, int ws) {
 				}
 				if (dW1 == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+				
 				}
 				dW1 = true;
 				for (int a = 1; a <= ws; a++) {
@@ -210,19 +221,25 @@ bool cheackWrapWin(int r, int c, int ws) {
 				}
 				if (dW2 == true) {
 					if (board[i][j] == "X") {
-						winner = 1;
+						winner1 = true;
 					}
 					else if (board[i][j] == "O") {
-						winner = 2;
+						winner2 = true;
 					}
-					return true;
-					break;
+					
+				
 				}
 				dW2 = true;
 			}
 		}
 	}
-	return false;
+	if (winner1 == true || winner2 == true) {
+		return true;
+	}
+	else {
+
+		return false;
+	}
 }
 
 void simpleAI(int r, int c, int mode, bool wP) {
@@ -257,6 +274,7 @@ void simpleAI(int r, int c, int mode, bool wP) {
 				bool sureWin = cheackWin(r, c, 3);
 				if (sureWin == true) {
 					deciC = i;
+					board[choice[i]][i] = "*";
 					break;
 				}
 			}
@@ -273,6 +291,7 @@ void simpleAI(int r, int c, int mode, bool wP) {
 				bool sureLose = cheackWin(r, c, 3);
 				if (sureLose == true) {
 					deciC = i;
+					board[choice[i]][i] = "*";
 					break;
 				}
 			}
@@ -401,33 +420,96 @@ int main()
 	while (true) {
 		cout << "Please input the rows of the board(4 to 20): " << endl;
 		cin >> r;
-		if (r <= MAXSIZE && r >= 4) {
-			break;
+		if (cin.good() == 1) {
+			if (r <= MAXSIZE && r >= 4) {
+				break;
+			}
+		}
+		else {
+			cout << "Input an integer" << endl;
+			cin.clear();
+			cin.ignore();
 		}
 	}
 	while (true) {
 		cout << "Please input the columns of the board(4 to 20): " << endl;
 		cin >> c;
-		if (c <= MAXSIZE && c >= 4) {
-			break;
+		if (cin.good()) {
+			if (c <= MAXSIZE && c >= 4) {
+				break;
+			}
+		}
+		else {
+			cout << "Input an integer" << endl;
+			cin.clear();
+			cin.ignore();
 		}
 	}
 	sum = r * c;
 	while (true) {
 		cout << "How many pieces in straight to win? (3 to 20): " << endl;
 		cin >> wStreak;
-		if (wStreak <= MAXSIZE && wStreak >= 3) {
+		if(cin.good()){
+			if (wStreak <= MAXSIZE && wStreak >= 3) {
+				int tem = c;
+				if (r > c) {
+					tem = r;
+				}
+				if (wStreak <= tem) {
+					break;
+				}
+				else {
+					cout << "The number you input is too larger, try a new one" << endl;
+				}
+			}
+		}
+		else {
+			cout << "Input an integer" << endl;
+			cin.clear();
+			cin.ignore();
+		}
+	}
+	while (true) {
+		cout << "Do you want to play wrap mode? Type 1 for yes" << endl;
+		cin >> mode;
+		if (cin.good()) {
+			break;
+		}
+		else {
+			mode = 0;
+			cin.clear();
+			cin.ignore();
 			break;
 		}
 	}
-	cout << "Do you want to play wrap mode? Type 1 for yes" << endl;
-	cin >> mode;
-	cout << "Do you want to enable drop mode? Type 1 for yes" << endl;
-	cin >> drop;
-	cout << "Do you want to play against AI(this will automatically ban drop mode and win streak will be set to 4) Type 1 for yes" << endl;
-	cin >> aiMode;
+	while (true) {
+		cout << "Do you want to enable drop mode? Type 1 for yes" << endl;
+		cin >> drop;
+		if (cin.good()) {
+			break;
+		}
+		else {
+			drop = 0;
+			cin.clear();
+			cin.ignore();
+			break;
+		}
+	}
+	while (true) {
+		cout << "Do you want to play against AI(this will automatically ban drop mode and win streak will be set to 4) Type 1 for yes" << endl;
+		cin >> aiMode;
+		if (cin.good()) {
+			break;
+		}
+		else {
+			aiMode = 0;
+			cin.clear();
+			cin.ignore();
+			break;
+		}
+	}
 	if (aiMode == 1) {
-		drop == 0;
+		drop = 0;
 	}
 	InitMatrix(r, c);
 	PrintMatrix(r, c);
@@ -438,21 +520,28 @@ int main()
 					cout << "Player1 Please input which column you want to play: ";
 					cin >> columnInput;
 					while (true) {
-						if (columnInput <= c && columnInput > 0) {
-							int a = columnInput - 1;
-							if (board[0][a] != "*") {
-								cout << "Please input a valid number (Current column is full): ";
-								cin >> columnInput;
+						if (cin.good()) {
+							if (columnInput <= c && columnInput > 0) {
+								int a = columnInput - 1;
+								if (board[0][a] != "*") {
+									cout << "Please input a valid number (Current column is full): ";
+									cin >> columnInput;
+								}
+								else {
+									cout << "You want to play at column " << columnInput << endl;
+									break;
+
+								}
 							}
 							else {
-								cout << "You want to play at column " << columnInput << endl;
-								break;
-
+								cout << "Please input a valid number (1 to " << c << "):";
+								cin >> columnInput;
 							}
 						}
 						else {
-							cout << "Please input a valid number (1 to " << c << "):";
-							cin >> columnInput;
+							cout << "Input an integer" << endl;
+							cin.clear();
+							cin.ignore();
 						}
 					}
 					int m = PlayChess(columnInput - 1, player1, r);
@@ -475,21 +564,28 @@ int main()
 					cin >> columnInput;
 				}
 				while (true) {
-					if (columnInput <= c && columnInput > 0) {
-						int a = columnInput - 1;
-						if (board[0][a] != "*") {
-							cout << "Please input a valid number (Current column is full): ";
-							cin >> columnInput;
+					if (cin.good()) {
+						if (columnInput <= c && columnInput > 0) {
+							int a = columnInput - 1;
+							if (board[0][a] != "*") {
+								cout << "Please input a valid number (Current column is full): ";
+								cin >> columnInput;
+							}
+							else {
+								cout << "You want to play at column " << columnInput << endl;
+								break;
+
+							}
 						}
 						else {
-							cout << "You want to play at column " << columnInput << endl;
-							break;
-
+							cout << "Please input a valid number (1 to " << c << "):";
+							cin >> columnInput;
 						}
 					}
 					else {
-						cout << "Please input a valid number (1 to " << c << "):";
-						cin >> columnInput;
+						cout << "Input an integer" << endl;
+						cin.clear();
+						cin.ignore();
 					}
 				}
 				int m = PlayChess(columnInput - 1, player1, r);
@@ -502,60 +598,80 @@ int main()
 			int a = 1;
 			cin >> a;
 			while (true) {
-				if (a == 1) {
-					break;
-				}
-				else if (a == 2) {
-					if (player1) {
-						int count = PieceCheck(r, c, "X");
-						if (count > 0) {
-							break;
+				if (cin.good()) {
+					if (a == 1) {
+						break;
+					}
+					else if (a == 2) {
+						if (player1) {
+							int count = PieceCheck(r, c, "X");
+							if (count > 0) {
+								break;
+							}
+							else {
+								cout << "You don't have any piece to withdraw, you need to play" << endl;
+								a = 1;
+							}
 						}
-						else {
-							cout << "You don't have any piece to withdraw, you need to play" << endl;
-							a = 1;
+						if (!player1) {
+							int count = PieceCheck(r, c, "O");
+							if (count > 0) {
+								break;
+							}
+							else {
+								cout << "You don't have any piece to withdraw, you need to play" << endl;
+								a = 1;
+							}
 						}
 					}
-					if (!player1) {
-						int count = PieceCheck(r, c, "O");
-						if (count > 0) {
-							break;
-						}
-						else {
-							cout << "You don't have any piece to withdraw, you need to play" << endl;
-							a = 1;
-						}
+					else {
+						cout << "Invalid input, please input again" << endl;
+						cin >> a;
 					}
 				}
 				else {
-					cout << "Invalid input, please input again" << endl;
-					cin >> a;
+					cout << "Input an integer" << endl;
+					cin.clear();
+					cin.ignore();
 				}
 			}
 			if (a == 2) {
 				if (player1) {
-					cout << "Player1 Please input which column you want withdraw: ";
-					cin >> columnInput;
 					while (true) {
-						if (board[r - 1][columnInput - 1] == "X") {
-							break;
+						cout << "Player1 Please input which column you want withdraw: ";
+						cin >> columnInput;
+						if (cin.good()) {
+							if (board[r - 1][columnInput - 1] == "X") {
+								break;
+							}
+							else {
+								cout << "invalid Input, please input again: " << endl;
+							}
 						}
 						else {
-							cout << "invalid Input, please input again: " << endl;
-							cin >> columnInput;
+							cout << "Input an integer" << endl;
+							cin.clear();
+							cin.ignore();
 						}
 					}
 				}
 				if (!player1) {
-					cout << "Player2 Please input which column you want to withdraw: ";
-					cin >> columnInput;
 					while (true) {
-						if (board[r - 1][columnInput - 1] == "O") {
-							break;
+						cout << "Player2 Please input which column you want to withdraw: ";
+						cin >> columnInput;
+						if (cin.good()) {
+							if (board[r - 1][columnInput - 1] == "O") {
+								break;
+							}
+							else {
+								cout << "invalid Input, please input again" << endl;
+								cin >> columnInput;
+							}
 						}
 						else {
-							cout << "invalid Input, please input again" << endl;
-							cin >> columnInput;
+							cout << "Input an integer" << endl;
+							cin.clear();
+							cin.ignore();
 						}
 					}
 				}
@@ -574,21 +690,28 @@ int main()
 					cin >> columnInput;
 				}
 				while (true) {
-					if (columnInput <= c && columnInput > 0) {
-						int a = columnInput - 1;
-						if (board[0][a] != "*") {
-							cout << "Please input a valid number (Current column is full): ";
-							cin >> columnInput;
+					if (cin.good()) {
+						if (columnInput <= c && columnInput > 0) {
+							int a = columnInput - 1;
+							if (board[0][a] != "*") {
+								cout << "Please input a valid number (Current column is full): ";
+								cin >> columnInput;
+							}
+							else {
+								cout << "You want to play at column " << columnInput << endl;
+								break;
+
+							}
 						}
 						else {
-							cout << "You want to play at column " << columnInput << endl;
-							break;
-
+							cout << "Please input a valid number (1 to " << c << "):";
+							cin >> columnInput;
 						}
 					}
 					else {
-						cout << "Please input a valid number (1 to " << c << "):";
-						cin >> columnInput;
+						cout << "Input an integer" << endl;
+						cin.clear();
+						cin.ignore();
 					}
 				}
 				int m = PlayChess(columnInput - 1, player1, r);
@@ -596,7 +719,6 @@ int main()
 				player1 = !player1;
 			}
 		}
-
 		if (mode != 1) {
 			gameOver = cheackWin(r, c, wStreak - 1);
 		}
@@ -609,10 +731,13 @@ int main()
 		}
 		if (gameOver) {
 			int answer = 0;
-			if (winner == 1) {
+			if (winner1 == true && winner2 == true) {
+				cout << "It's a draw" << endl;
+			}
+			else if (winner1 == true && winner2 == false) {
 				cout << "Player 1 has won" << endl;
 			}
-			else if (winner == 2) {
+			else if (winner1 == false && winner2 == true) {
 				if (aiMode == 1) {
 					cout << "You lose" << endl;
 				}
@@ -620,12 +745,27 @@ int main()
 					cout << "Player 2 has won" << endl;
 				}
 			}
-			cout << "Do you want to play again? Type 1:Yes  other:No " << endl;
-			cin >> answer;
-			if (answer == 1) {
-				gameOver = false;
-				InitMatrix(r, c);
-				PrintMatrix(r, c);
+			while (true) {
+				cout << "Do you want to play again? Type 1:Yes  other:No " << endl;
+				cin >> answer;
+				if (cin.good()) {
+					if (answer == 1) {
+						gameOver = false;
+						sum = r * c;
+						InitMatrix(r, c);
+						PrintMatrix(r, c);
+						break;
+					}
+					else {
+						break;
+					}
+				}
+				else {
+					cin.clear();
+					cin.ignore();
+					answer = 0;
+					break;
+				}
 			}
 		}
 	}
