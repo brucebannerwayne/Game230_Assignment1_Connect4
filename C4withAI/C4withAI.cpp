@@ -1,6 +1,7 @@
 #include<iomanip>
 #include <iostream>
 #include <string>
+#include<limits>
 
 using namespace std;
 const int MAXSIZE = 20;
@@ -428,7 +429,7 @@ int main()
 		else {
 			cout << "Input an integer" << endl;
 			cin.clear();
-			cin.ignore();
+			cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 		}
 	}
 	while (true) {
@@ -442,7 +443,7 @@ int main()
 		else {
 			cout << "Input an integer" << endl;
 			cin.clear();
-			cin.ignore();
+			cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 		}
 	}
 	sum = r * c;
@@ -466,7 +467,7 @@ int main()
 		else {
 			cout << "Input an integer" << endl;
 			cin.clear();
-			cin.ignore();
+			cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 		}
 	}
 	while (true) {
@@ -478,7 +479,7 @@ int main()
 		else {
 			mode = 0;
 			cin.clear();
-			cin.ignore();
+			cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 			break;
 		}
 	}
@@ -491,7 +492,7 @@ int main()
 		else {
 			drop = 0;
 			cin.clear();
-			cin.ignore();
+			cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 			break;
 		}
 	}
@@ -504,7 +505,7 @@ int main()
 		else {
 			aiMode = 0;
 			cin.clear();
-			cin.ignore();
+			cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 			break;
 		}
 	}
@@ -541,7 +542,7 @@ int main()
 						else {
 							cout << "Input an integer" << endl;
 							cin.clear();
-							cin.ignore();
+							cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 						}
 					}
 					int m = PlayChess(columnInput - 1, player1, r);
@@ -585,7 +586,7 @@ int main()
 					else {
 						cout << "Input an integer" << endl;
 						cin.clear();
-						cin.ignore();
+						cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 					}
 				}
 				int m = PlayChess(columnInput - 1, player1, r);
@@ -632,7 +633,7 @@ int main()
 				else {
 					cout << "Input an integer" << endl;
 					cin.clear();
-					cin.ignore();
+					cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 				}
 			}
 			if (a == 2) {
@@ -651,7 +652,7 @@ int main()
 						else {
 							cout << "Input an integer" << endl;
 							cin.clear();
-							cin.ignore();
+							cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 						}
 					}
 				}
@@ -671,7 +672,7 @@ int main()
 						else {
 							cout << "Input an integer" << endl;
 							cin.clear();
-							cin.ignore();
+							cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 						}
 					}
 				}
@@ -711,7 +712,7 @@ int main()
 					else {
 						cout << "Input an integer" << endl;
 						cin.clear();
-						cin.ignore();
+						cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 					}
 				}
 				int m = PlayChess(columnInput - 1, player1, r);
@@ -762,7 +763,7 @@ int main()
 				}
 				else {
 					cin.clear();
-					cin.ignore();
+					cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 					answer = 0;
 					break;
 				}
