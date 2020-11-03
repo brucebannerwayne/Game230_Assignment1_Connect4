@@ -243,6 +243,15 @@ bool cheackWrapWin(int r, int c, int ws) {
 	}
 }
 
+bool checkInput(string str) {
+	for (int i = 0; i < str.length(); i++) {
+		if (str.c_str()[i] < '0' || str.c_str()[i] > '9') {
+			return false;
+		}
+	}
+	return true;
+}
+
 void simpleAI(int r, int c, int mode, bool wP) {
 	int choice[MAXSIZE] = {};
 	int score = 0, deciC = 0;
@@ -420,8 +429,10 @@ int main()
 	int aiMode = 0;
 	while (true) {
 		cout << "Please input the rows of the board(4 to 20): " << endl;
-		cin >> r;
-		if (cin.good() == 1) {
+		string row;
+		getline(cin, row);
+		if (checkInput(row)) {
+			r = atoi(row.c_str());
 			if (r <= MAXSIZE && r >= 4) {
 				break;
 			}
@@ -434,8 +445,9 @@ int main()
 	}
 	while (true) {
 		cout << "Please input the columns of the board(4 to 20): " << endl;
-		cin >> c;
-		if (cin.good()) {
+		string col;
+		getline(cin, col);
+		if (checkInput(col)) {
 			if (c <= MAXSIZE && c >= 4) {
 				break;
 			}

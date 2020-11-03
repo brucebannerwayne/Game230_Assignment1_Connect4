@@ -1,3 +1,4 @@
 ﻿  C4withAI.cpp
-  D:\Game230\C4withAI\C4withAI\C4withAI.cpp(53) : warning C4715: “PlayChess”: 不是所有的控件路径都返回值
+D:\Game230\C4withAI\C4withAI\C4withAI.cpp(247,20): warning C4018:  “<”: 有符号/无符号不匹配
+D:\Game230\C4withAI\C4withAI\C4withAI.cpp(247,20): warning C4018: D:\Game230\C4withAI\C4withAI\C4withAI.cpp(53) : warning C4715: “PlayChess”: 不是所有的控件路径都返回值
   C4withAI.vcxproj -> D:\Game230\C4withAI\Debug\C4withAI.exe
